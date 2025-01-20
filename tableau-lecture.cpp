@@ -6,7 +6,29 @@
 
 
 vector<vector<string>> litTableau(string nom_fichier, int nb_colonnes) {
-    // Remplacez cette ligne et la suivante par le code adéquat
-    throw runtime_error("Fonction litTableau non implantée ligne 10");
+    ifstream flux(nom_fichier);
+    if(!flux){
+        throw runtime_error("Impossible d'ouvrir le fichier " + nom_fichier);
+    }
+
+    string line;
+    vector<vector<string>> tab;
+    while(getline(flux, line)){
+        istringstream iss(line);
+        string mot;
+        vector<string> col;
+
+        while(iss >> mot){
+            col.push_back(mot);
+        }
+
+        if(col.size() != nb_colonnes){
+            throw runtime_error("Nombre de colonnes inattendu dans le fichier " + nom_fichier);
+        }
+        tab.push_back(col);
+    }
+
+    flux.close();
+    return tab;
 }
 
