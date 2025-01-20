@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <algorithm>
 #include <string>
 #include "tableau-donnees.hpp"
 #include "tableau-lecture.hpp"
@@ -23,8 +25,30 @@ vector<string> jours = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Same
  * case d'indice i, on trouve le nombre total de mariages de l'année 2010+i
  **/
 vector<int> creeTableauAnnee(vector<vector<string>> data) {
-    // Remplacez cette ligne et la suivante par le code adéquat
-    throw runtime_error("Fonction creeTableauAnnee non implantée ligne 27");
+    
+    // Extraction et conversion des tableaux
+    vector<string> tab_annee_str = colonne(data, 0);
+    vector<string> tab_nombremariages_str = colonne(data, 2);
+    vector<int> tab_nombremariages_int = conversionInt(tab_nombremariages_str);
+    vector<int> tab_annee_int = conversionInt(tab_annee_str);
+
+    // Determiner max année et min année
+    int min_year = 2010;
+    int max_year = *max_element(tab_annee_int.begin(), tab_annee_int.end());
+
+    // Creation du tableau avec des 0
+    vector<int> result(max_year - min_year + 1, 0);
+
+    // Accumulate the number of marriages for each year
+    for (int i = 0; i < tab_annee_int.size(); i++) {
+        int year = tab_annee_int[i];
+        int marriage_count = tab_nombremariages_int[i];
+        if (year >= min_year) {
+            result[year - min_year] += marriage_count;
+        }
+    }
+
+    return result;
 }
 
 /** Test de la fonction CreeTableauAnnee **/
@@ -89,7 +113,7 @@ void testCreeTableauJours() {
  * - le pourcentage de mariages célébrés un samedi
  **/
 int main() {
-    // Remplacez cette ligne et la suivante par le code adéquat
-    throw runtime_error("Fonction main non implantée ligne 93");
+    testCreeTableauAnnee();
+    return 0;
 }
 
