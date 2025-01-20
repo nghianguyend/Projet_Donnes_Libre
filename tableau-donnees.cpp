@@ -56,7 +56,7 @@ vector<int> conversionInt(vector<string> t) {
     }
     return tab;
 }
-
+//test
 vector<vector<string>> selectLignes(vector<vector<string>> t, int j, string valeur) {
     vector<vector<string>> tab;
     for(int i = 0; i < t.size(); i++){
