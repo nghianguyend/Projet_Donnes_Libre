@@ -91,8 +91,22 @@ void testIndiceJour() {
  * case d'indice i, on trouve le nombre total de mariages célébrés le jour i
  **/
 vector<int> creeTableauJours(vector<vector<string>> data) {
-    // Remplacez cette ligne et la suivante par le code adéquat
-    throw runtime_error("Fonction creeTableauJours non implantée ligne 71");
+    // Extraction et conversion des tableaux
+    vector<string> jour_str = colonne(data, 1);
+    vector<string> nb_mariages_str = colonne(data, 2);
+    vector<int> nb_mariage_int = conversionInt(nb_mariages_str);
+
+    // Création du tableau avec des 0
+    int max_days = 365; // Assuming a non-leap year for simplicity
+    vector<int> tab(max_days, 0);
+
+    for(int i = 0; i < nb_mariage_int.size(); i++){
+        int indice_jour_mariage = indiceJour(jour_str[i]);
+        if(indice_jour_mariage < tab.size()){
+            tab[indice_jour_mariage] += nb_mariage_int[i];
+        }
+    }
+    return tab;
 }
 
 /** Test de la fonction litTableauJours **/
@@ -114,6 +128,7 @@ void testCreeTableauJours() {
  **/
 int main() {
     testCreeTableauAnnee();
+    testCreeTableauJours();
     return 0;
 }
 
